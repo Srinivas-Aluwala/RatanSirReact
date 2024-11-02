@@ -5,6 +5,7 @@ const Home=()=>{
       <>
       <h1>welcome to home page</h1>
       <h1>this is the new modification</h1>
+          <h1>colegues modifications</h1>
       </>
     )
   }
