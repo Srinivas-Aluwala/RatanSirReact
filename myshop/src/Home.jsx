@@ -4,6 +4,7 @@ const Home=()=>{
     return (
       <>
       <h1>welcome to home page</h1>
+      <h1>this is the new modification</h1>
       </>
     )
   }
