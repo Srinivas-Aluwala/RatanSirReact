@@ -81,6 +81,25 @@ const cartSlice=createSlice({
     } 
 });
 
+const user=createSlice({
+    
+    name:'user',
+    initialState:[],
+    reducers:{
+        addUser:(state,action)=>{
+            state.push({...action.payload})
+        }
+    }
+
+});
+
+
+
+
+
+
+
+
 const store=configureStore({
 
     reducer:{

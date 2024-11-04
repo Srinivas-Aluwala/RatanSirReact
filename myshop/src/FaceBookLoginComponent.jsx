@@ -1,49 +1,35 @@
 
 
-import { LoginSocialFacebook } from 'reactjs-social-login'
-import { FacebookLoginButton } from 'react-social-login-buttons'
+import { LoginSocialFacebook } from 'reactjs-social-login';
+import { FacebookLoginButton } from 'react-social-login-buttons';
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 
 const FaceBookLoginComponent=()=>{
 
-    
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+const [profile,setProfile]=useState(null);
+   
+const dispatch=useDispatch();
 
-  const handleSuccess = (credentialResponse) => {
-    console.log('Login Success:', credentialResponse);
-    const userProfile = decodeJwt(credentialResponse.credential);
-    setUserName(userProfile.name); 
-    setIsLoggedIn(true);
-  };
-
-  const decodeJwt = (token) => {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(window.atob(base64));
-
-
-    
-}
 
  return(<>
     
 
-    {!isLoggedIn?(<>
+    {!profile?(<>
     <LoginSocialFacebook 
-    appId='951287380367131'
+    appId='403549482817309'
     onResolve={(Response)=>{
-        console.log(Response);
+        {()=>dispatch(addUser(Response.data))}
     }}
     onReject={(error)=>{
         console.log(error);
     }}
     >
-    <FacebookLoginButton  text='continure with facebook' onSuccess={handleSuccess}/>
+    <FacebookLoginButton  text='continure with facebook'/>
     </LoginSocialFacebook>
 </>):(
-    <h1>welcome {userName}</h1>
+    <h1>welcome {profile.name}</h1>
 )}
  </>)
 
