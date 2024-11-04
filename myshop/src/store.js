@@ -81,31 +81,56 @@ const cartSlice=createSlice({
     } 
 });
 
-const user=createSlice({
-    
+const userSlice=createSlice({
+
     name:'user',
-    initialState:[],
+    initialState:{
+        profile:null
+    },
     reducers:{
-        addUser:(state,action)=>{
-            state.push({...action.payload})
-        }
+        login:(state,action)=>{
+
+                state.profile=action.payload;
+        },
+        logout:(state)=>{
+
+            state.profile=null;
+    }
     }
 
 });
 
 
+const logincomp=createSlice({
 
+    name:'modalstat',
+    initialState:{
+        status:false
+    },
+    reducers:{
 
-
-
+         openModal:(state) => {
+            state.status=true;
+          },
+          
+          closeModal:(state) => {
+            state.status=false;
+          }
+    }
+});
 
 
 const store=configureStore({
 
     reducer:{
         products:productSlice.reducer,
-        cart:cartSlice.reducer
+        cart:cartSlice.reducer,
+        user:userSlice.reducer,
+        modalstat:logincomp.reducer
     }
 });
+
+export const {openModal, closeModal} =logincomp.actions;
+export const {login,logout } =userSlice.actions;
 export const {addToCart,removeFromCart,deleteFromCart} = cartSlice.actions;
 export default store;

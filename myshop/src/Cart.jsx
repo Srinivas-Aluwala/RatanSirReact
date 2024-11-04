@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart,removeFromCart,deleteFromCart } from "./store";
 import './Cart.css'
+import { useNavigate } from "react-router-dom";
 
+import { login,logout,openModal,closeModal } from "./store";
 
 const Cart=()=>{
 
@@ -103,6 +105,16 @@ const {discountAmt,netAmt}= calculatetotal();
 
   const netamt=total-couponDiscount-discount;
 
+  const profile=useSelector(state=>state.user.profile);
+  const navigate=useNavigate();
+  const completeorder=()=>{
+    {profile?(
+      navigate('/OrderHistory')
+    ):(dispatch(openModal()))}
+
+    // <button onClick={()=>dispatch(openModal())}>{profile?(profile.first_name):'login'}</button>
+
+  }
     return (
       <>
          {cart.length === 0 ? (<h3>Cart is empty</h3>):(
@@ -127,7 +139,7 @@ const {discountAmt,netAmt}= calculatetotal();
 
         <p>Net bill : {netamt}</p>
 
-        <p><button>Complete order</button></p> 
+        <p><button onClick={completeorder}>{profile?('Complete order'):('login to proceed')}</button></p> 
         </>
          )}
          </> 
